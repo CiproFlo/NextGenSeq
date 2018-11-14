@@ -8,16 +8,17 @@ system("clear");
 
 ##### User input #####
 
-my $full_path      = "/home/groher/Capture_SELEX_NGS/_seq_data/";
-my $file_name      = "Groher-CS-NGS_S96_R1_001.fastq";
+my $full_path      = "/home/user/";
+my $file_name      = "NGS.fastq";
 
-my $five_const     = "GGGCAACTCCAAGCTAGATCTACCGGT";         ## 5' constant region of SELEX pool (5'->3')
+my $five_const     = "GGGCAACTCCAAGCTAGATCTACCGGT";             ## 5' constant region of SELEX pool (5'->3')
 my $three_const    = "AAAATGGCTAGCAAAGGAGAAGAACTTTTCACT";	## 3' constant region of SELEX pool (5'->3')
 
 my $length_barcode = 7;
 
 my $barcode_file   = "barcodes.txt";	# Placed in $full_path
 my %barcodes       = &get_barcodes($full_path.$barcode_file);
+
 my ($barcodes_recognized, $barcode_correct) = (0, 0);
 
 ######################
@@ -52,11 +53,11 @@ while (<FASTQ_FILE>){
 
     die "Lineissue $_" if ( ($line_counter == 0 ) && (substr($_,0,1) ne "@"));	## First, short quality control
 
-    if      ($line_counter == 0) { $identifier             			  = $_; 
-    } elsif ($line_counter == 1) { $sequence 						  = $_;
-    							  ($library, $rnd_region) 			  = &qualitycontrol($_);
-    } elsif ($line_counter == 2) { $optional_information   			  = $_;
-    } elsif ($line_counter == 3) { $quality_score  		   			  = $_; 
+    if      ($line_counter == 0) { $identifier             	= $_; 
+    } elsif ($line_counter == 1) { $sequence 			= $_;
+    				  ($library, $rnd_region) 	= &qualitycontrol($_);
+    } elsif ($line_counter == 2) { $optional_information   	= $_;
+    } elsif ($line_counter == 3) { $quality_score  		= $_; 
     } else                       { say "OOPS!";}
     
     ++$line_counter;
@@ -120,7 +121,7 @@ sub assign_library {
 			$barcode_correct++;
 		}
 		
-		use re::engine::TRE (max_cost => 1); 				## Max_cost depends on the designed barcodes
+		use re::engine::TRE (max_cost => 1); 	## Max_cost depends on the designed barcodes
 		if ($barcode_to_identify =~ m/$barcode/){
 			$assigned_library = $barcodes{$barcode};
 			$flag++;
@@ -163,7 +164,6 @@ sub get_barcodes {
 	open (BARCODE_FILE, '<', $_[0]); 
 	while (<BARCODE_FILE>){
 		# To Do match: "CTAAGTC" => "1"
-
 	}
 	return (%barcodes)
 }
