@@ -15,7 +15,7 @@ system("clear");
 
 my @rounds_to_process = (37, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13); ## 37 = naive pool!
 
-my $path_to_file    = "/Volumes/Macintosh\ HD2/__TUD/02_BELEX/_NGS/_seq_data/";   ## Also the directory for the different output files!
+my $path_to_file    = "/user_folder/seq_data/";               ## Also the directory for the different output files!
 my $five_const      = "GGGCAACTCCAAGCTAGATCTACCGGT";          ## Sequence 5' constant region: GGGCAACTCCAAGCTAGATCTACCGGT
 my $three_const     = "AAAATGGCTAGCAAAGGAGAAGAACTTTTCACT";    ## Sequence 3' constant region: AAAATGGCTAGCAAAGGAGAAGAACTTTTCACT
 
@@ -30,13 +30,8 @@ my @libraries_to_exclude = (0,);                        ## Libraries NOT inlcude
 
 my $motifs           = 1;                               ## Searching for predefined motifs
 my %motifs = (                                          ## Motifs to search for
-    "docking_sequence"          => "CTACTGGCTTCTA", 
-    "P11 random part with DS"   => "AGAACCCACAGTTCTACAACAAACCACCAGAGACAGTCTTCTACTGGCTTCTACTGAGCAGGG",
-    "P11 stem 1"                => "TAGAACCCACAGTTCTAC",
-    "P11 stem 2"                => "CCACCAGAGACAGTCTTCTACTGGCTTCTACTGAGCAGGG",
-    "Spacer between the loops"  => "AACAAACCAC",
-    "Paro RS"                   => "AGAACCCACAGTTCTACCACATACCACCAGAGACAGTCTTCTATTGGCTTCTACTGAGCAGGG",
-    "Binding area"              => "CTGAGCAGG",
+    "motif1"   => "AAAAAAAAAAA", 
+    "motif2"   => "ATCGATCGATG",
 );
 my $max_cost   = 0;                                ## Maximum allowd mismatches to the motifs
 

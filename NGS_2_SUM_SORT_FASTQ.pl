@@ -52,11 +52,11 @@ for (my $round = $start_round; $round <= $end_round; $round++){
     while (<FASTQ_FILE>){
         chomp();
 
-        die "Lineissue $_" if ( ($line_counter == 0 ) && (substr($_,0,1) ne "@"));       ## First, short quality control
+        die "Lineissue $_" if ( ($line_counter == 0 ) && (substr($_,0,1) ne "@"));	## First, short quality control
 
         if      ($line_counter == 0) {  #$identifier = $_; 
         } elsif ($line_counter == 1) {  #$sequence = $_;
-        } elsif ($line_counter == 2) {  $sequence = substr($_, 1, );                      ## this strips the leading '+' sign
+        } elsif ($line_counter == 2) {  $sequence = substr($_, 1, );	 ## this strips the leading '+' sign
                                         
                                         if (!$pool{$sequence}){
                                             $pool{$sequence}{readcount}  = 1;
@@ -69,14 +69,14 @@ for (my $round = $start_round; $round <= $end_round; $round++){
                                         }
                                         else {say "ERROR";}
 
-        } elsif ($line_counter == 3) { #$quality_score                     = $_; 
+        } elsif ($line_counter == 3) { #$quality_score                     = $_;  # just ignnore
         } else                       { say "OOPS!";}
         
         ++$line_counter;
         if ( $line_counter > 3) { $line_counter = 0; ++$read_counter; }
 
 
-        #last if $read_counter == 10_000;                                                     ## Remove in final run!!!!
+        #last if $read_counter == 10_000;	## For debugging only.
         my $datestring = localtime();
 
         say $datestring . ":  " . $read_counter if (($read_counter % 100_000 == 0) && ($line_counter == 0));
